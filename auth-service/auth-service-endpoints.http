@@ -1,0 +1,29 @@
+POST localhost:8085/api/v1/auth/register
+Content-Type: application/json
+
+{
+  "username" : "mafr",
+  "email" : "madityafr@gmail.com",
+  "password" : "Pass123!",
+  "firstName" : "Muhammad Aditya",
+  "lastName" : "Fathur Rahman",
+  "role" : "admin"
+}
+
+###
+
+POST localhost:8085/api/v1/auth/login
+Content-Type: application/json
+
+{
+  "username" : "mafr",
+  "password" : "Pass123!"
+}
+
+> {%
+client.global.set("token", response.body.data);
+%}
+###
+
+GET localhost:8085/api/v1/auth/all-users
+Authorization: Bearer {{token}}
