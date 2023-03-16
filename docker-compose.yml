@@ -1,6 +1,17 @@
 version: '3'
 
 services:
+  user-db:
+    image: 'postgres:15-alpine'
+    container_name: user-db
+    environment:
+      - POSTGRES_USER=capstone_db
+      - POSTGRES_PASSWORD=capstone_db
+      - POSTGRES_DB=user_db
+    volumes:
+      - capstone_db:/var/lib/postgresql/data
+    ports:
+      - "5438:5432"
   zookeeper:
     image: confluentinc/cp-zookeeper
     container_name: zookeeper
@@ -23,3 +34,5 @@ services:
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
       KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
       KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+volumes:
+  capstone_db:
