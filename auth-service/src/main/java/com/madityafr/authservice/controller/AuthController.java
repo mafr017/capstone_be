@@ -29,6 +29,7 @@ public class AuthController {
     @CrossOrigin
     @PostMapping("/register")
     public ResponseEntity<ResponseDTO> addUser(@RequestBody UserDTO userDTO) {
+        if (userDTO.getRole() == null) userDTO.setRole("user");
         User user = tokenService.addUser(userDTO);
         return new ResponseEntity<ResponseDTO>(ResponseDTO.builder()
                 .httpStatus(HttpStatus.CREATED)

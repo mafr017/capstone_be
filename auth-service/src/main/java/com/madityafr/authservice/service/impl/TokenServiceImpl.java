@@ -65,7 +65,7 @@ public class TokenServiceImpl implements TokenService {
     public User addUser(UserDTO userDTO) {
         User user = modelMapper.map(userDTO, User.class);
         if (!PasswordValidator.isValid(user.getPassword())) {
-            throw new InvalidPasswordException("Password must be should contains:\n-at least 1 lowercase\n-at least 1 uppercase\n-at least 1 number\n-at least 1 special character");
+            throw new InvalidPasswordException("Password should contains:\n-at least 8 characters\n-at least 1 lowercase\n-at least 1 uppercase\n-at least 1 number\n-at least 1 special character");
         }
         user.setPassword(encoder.encode(user.getPassword()));
         return userRepository.save(user);
