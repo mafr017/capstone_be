@@ -14,7 +14,7 @@ public class RoomListDTO implements Serializable {
     private Integer id;
     private String nameRoom;
     private Integer capacity;
-    private Integer idType;
+    private TypeRoomDTO typeRoom;
     private LocalDate availableFrom;
     private LocalDate availableTo;
     private Integer byAdmin;

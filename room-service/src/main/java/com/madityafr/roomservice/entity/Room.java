@@ -2,16 +2,20 @@ package com.madityafr.roomservice.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
-@Data
+@Setter
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
 public class Room {
@@ -20,7 +24,10 @@ public class Room {
     private Integer id;
     private String nameRoom;
     private Integer capacity;
-    private Integer idType;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "idType")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private TypeRoom typeRoomEntity;
     private LocalDate availableFrom;
     private LocalDate availableTo;
     @CreationTimestamp

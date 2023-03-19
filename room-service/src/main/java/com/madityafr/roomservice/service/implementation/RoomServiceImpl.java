@@ -4,6 +4,7 @@ import com.madityafr.roomservice.dto.PaginateDTO;
 import com.madityafr.roomservice.dto.RoomDTO;
 import com.madityafr.roomservice.dto.RoomListDTO;
 import com.madityafr.roomservice.entity.Room;
+import com.madityafr.roomservice.entity.TypeRoom;
 import com.madityafr.roomservice.exception.NotFoundException;
 import com.madityafr.roomservice.repository.RoomRepository;
 import com.madityafr.roomservice.repository.TypeRoomRepository;
@@ -34,7 +35,15 @@ public class RoomServiceImpl implements RoomService {
     @Transactional
     public void addRoom(RoomDTO roomDTO) {
         Room room = modelMapper.map(roomDTO, Room.class);
-        LocalDate date = LocalDate.parse(roomDTO.getAvailableYear()+"-"+roomDTO.getAvailableMonth()+"-01");
+
+        Optional<TypeRoom> optionalTypeRoom = typeRoomRepository.findById(Long.valueOf(roomDTO.getIdType()));
+        if (optionalTypeRoom.isEmpty()) {
+            log.error("TypeRoom with id : {} not found!", Long.valueOf(roomDTO.getIdType()), new NotFoundException("TypeRoom not found"));
+            throw new NotFoundException("TypeRoom Not Found");
+        }
+        room.setTypeRoomEntity(optionalTypeRoom.get());
+
+        LocalDate date = LocalDate.parse(roomDTO.getAvailableYear() + "-" + roomDTO.getAvailableMonth() + "-01");
         room.setAvailableFrom(date);
         room.setAvailableTo(date.plusMonths(1).minusDays(1));
         roomRepository.save(room);
@@ -44,7 +53,7 @@ public class RoomServiceImpl implements RoomService {
     @Override
     public PaginateDTO<List<RoomListDTO>> getAllRoomPagination(Pageable pageable) {
         Page<Room> rooms = roomRepository.findAll(pageable);
-        List<RoomListDTO>  roomDTOArrayList = new ArrayList<>();
+        List<RoomListDTO> roomDTOArrayList = new ArrayList<>();
         for (Room room : rooms.getContent()) {
             RoomListDTO roomDTO = modelMapper.map(room, RoomListDTO.class);
             roomDTOArrayList.add(roomDTO);
@@ -65,7 +74,14 @@ public class RoomServiceImpl implements RoomService {
         Room room = optionalRoom.get();
         if (roomDTO.getNameRoom() != null && !roomDTO.getNameRoom().isBlank()) room.setNameRoom(roomDTO.getNameRoom());
         if (roomDTO.getCapacity() != null && roomDTO.getCapacity() > 0) room.setCapacity(roomDTO.getCapacity());
-        if (roomDTO.getIdType() != null && roomDTO.getIdType() > 0) room.setIdType(roomDTO.getIdType());
+        if (roomDTO.getIdType() != null && roomDTO.getIdType() > 0) {
+            Optional<TypeRoom> optionalTypeRoom = typeRoomRepository.findById(id);
+            if (optionalTypeRoom.isEmpty()) {
+                log.error("TypeRoom with id : {} not found!", id, new NotFoundException("TypeRoom not found"));
+                throw new NotFoundException("TypeRoom Not Found");
+            }
+            room.setTypeRoomEntity(optionalTypeRoom.get());
+        }
         if ((roomDTO.getAvailableYear() != null && !roomDTO.getAvailableYear().isBlank()) &&
                 (roomDTO.getAvailableMonth() != null && !roomDTO.getAvailableMonth().isBlank())) {
             LocalDate date = LocalDate.parse(roomDTO.getAvailableYear() + "-" + roomDTO.getAvailableMonth() + "-01");

@@ -13,7 +13,7 @@ public class GlobalException {
         return new ResponseEntity<>(ResponseDTO.builder()
                 .httpStatus(HttpStatus.BAD_REQUEST)
                 .message("Not Found")
-                .data(e.getMessage())
+                .data(e.msg)
                 .build(), HttpStatus.BAD_REQUEST);
     }
     @ExceptionHandler(value = Exception.class)
