@@ -1,12 +1,13 @@
 package com.madityafr.roomservice.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import java.util.Date;
 
 @Entity
 @Data
@@ -17,5 +18,12 @@ public class TypeRoom {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
+    @Column(columnDefinition = "TEXT")
     private String description;
+    @CreationTimestamp
+    @Column(name = "createdAt", nullable = false, updatable = false)
+    private Date createdAt;
+    @UpdateTimestamp
+    @Column(name = "updatedAt")
+    private Date updatedAt;
 }

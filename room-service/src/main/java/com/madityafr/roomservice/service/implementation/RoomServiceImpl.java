@@ -63,7 +63,11 @@ public class RoomServiceImpl implements RoomService {
         }
 
         Room room = optionalRoom.get();
-        if (roomDTO.getAvailableYear() != null && roomDTO.getAvailableMonth() != null) {
+        if (roomDTO.getNameRoom() != null && !roomDTO.getNameRoom().isBlank()) room.setNameRoom(roomDTO.getNameRoom());
+        if (roomDTO.getCapacity() != null && roomDTO.getCapacity() > 0) room.setCapacity(roomDTO.getCapacity());
+        if (roomDTO.getIdType() != null && roomDTO.getIdType() > 0) room.setIdType(roomDTO.getIdType());
+        if ((roomDTO.getAvailableYear() != null && !roomDTO.getAvailableYear().isBlank()) &&
+                (roomDTO.getAvailableMonth() != null && !roomDTO.getAvailableMonth().isBlank())) {
             LocalDate date = LocalDate.parse(roomDTO.getAvailableYear() + "-" + roomDTO.getAvailableMonth() + "-01");
             room.setAvailableFrom(date);
             room.setAvailableTo(date.plusMonths(1).minusDays(1));
