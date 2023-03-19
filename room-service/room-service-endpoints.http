@@ -1,0 +1,95 @@
+###
+### ROOMS SERVICE
+###
+
+POST localhost:8083/api/v1/rooms
+Content-Type: application/json
+
+{
+    "nameRoom": "Test room 1",
+    "capacity": 200,
+    "idType": 1,
+    "availableYear": "2023",
+    "availableMonth": "03",
+    "byAdmin": 1
+}
+
+###
+
+PUT localhost:8083/api/v1/rooms
+Content-Type: application/json
+
+{
+    "nameRoom": "Test room 1",
+    "capacity": 30,
+    "idType": 2,
+    "availableYear": "2023",
+    "availableMonth": "04",
+    "byAdmin": 1
+}
+
+###
+
+GET localhost:8083/api/v1/rooms
+
+###
+
+GET localhost:8083/api/v1/rooms/1
+
+###
+
+DELETE localhost:8083/api/v1/rooms/1
+
+###
+### TYPE-ROOM SERVICE
+###
+
+POST localhost:8083/api/v1/type-room
+Content-Type: application/json
+
+{
+    "name": "Conferences",
+    "description": "Conferences are virtual meetings where multiple people from different locations participate in the same discussion. This type of meeting is great for when you need to get a large number of opinions and viewpoints on an issue. With this method, you can easily see what everyone thinks without having them all together at one physical location."
+}
+
+###
+
+POST localhost:8083/api/v1/type-room
+Content-Type: application/json
+
+{
+    "name": "Webinars",
+    "description": "A webinar is a meeting that takes place over the internet. This type of meeting is perfect for when you need to have a conversation with a group of people but don’t have the time or resources to meet in person."
+}
+
+###
+
+POST localhost:8083/api/v1/type-room
+Content-Type: application/json
+
+{
+    "name": "Session / Q&A session",
+    "description": "A session is a meeting in which one person shares their expertise on a particular topic with everyone else. This format of meeting works well when you need to get information from someone quickly and informally when there isn’t time for more extensive training or education."
+}
+
+###
+
+PUT localhost:8083/api/v1/type-room
+Content-Type: application/json
+
+{
+    "name": "Webinar",
+    "description": "A webinar is a meeting that takes place over the internet. This type of meeting is perfect for when you need to have a conversation with a group of people but don’t have the time or resources to meet in person."
+}
+
+###
+
+GET localhost:8083/api/v1/type-room
+
+###
+
+GET localhost:8083/api/v1/type-room/1
+
+###
+
+DELETE localhost:8083/api/v1/type-room/1
