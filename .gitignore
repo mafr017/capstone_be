@@ -2,6 +2,7 @@ HELP.md
 target/
 *.log
 *.gz
+*.tmp
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/

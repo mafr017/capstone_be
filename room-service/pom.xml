@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.madityafr</groupId>
-	<artifactId>room-service</artifactId>
+	<artifactId>room.room-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>room-service</name>
+	<name>room.room-service</name>
 	<description>Room Service</description>
 	<properties>
 		<java.version>17</java.version>
@@ -57,7 +57,7 @@
 		</dependency>
 		<dependency>
 			<groupId>com.madityafr</groupId>
-			<artifactId>reservation-service</artifactId>
+			<artifactId>room.reservation-service</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
