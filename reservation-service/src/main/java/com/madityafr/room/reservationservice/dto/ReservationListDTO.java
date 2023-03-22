@@ -1,7 +1,10 @@
 package com.madityafr.room.reservationservice.dto;
 
+import com.madityafr.room.reservationservice.entity.Room;
+import com.madityafr.room.reservationservice.entity.User;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 
@@ -12,10 +15,10 @@ import java.util.Date;
 @ToString
 public class ReservationListDTO {
     private Integer id;
-    private Date reservationDate;
+    private LocalDate reservationDate;
     private String startTime;
     private String endTime;
-    private Integer idUser;
-    private Integer idRoom;
+    private String nameUser;
+    private String nameRoom;
     private String status;
 }

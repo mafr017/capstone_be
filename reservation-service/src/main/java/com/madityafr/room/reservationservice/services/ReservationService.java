@@ -16,5 +16,5 @@ public interface ReservationService {
 
     void cancelReservation(Long id);
 
-    ReservationListDTO getReservationByID(Long id);
+    PaginateDTO<List<ReservationListDTO>> getReservationByID(Pageable pageable, Long id);
 }

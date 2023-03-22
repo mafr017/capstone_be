@@ -56,6 +56,10 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
+			<groupId>org.flywaydb</groupId>
+			<artifactId>flyway-core</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>com.madityafr</groupId>
 			<artifactId>room.reservation-service</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
