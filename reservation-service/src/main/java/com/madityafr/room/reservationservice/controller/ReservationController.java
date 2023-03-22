@@ -44,9 +44,9 @@ public class ReservationController {
         reservationService.addReservation(reservationDTO);
 
         // KAFKA PRODUCER
-        log.info("Kafka process...");
-        String resultKafka = sendRequest(reservationDTO);
-        log.info("Status Kafka addReservation: {}",resultKafka);
+//        log.info("Kafka process...");
+//        String resultKafka = sendRequest(reservationDTO);
+//        log.info("Status Kafka addReservation: {}",resultKafka);
 
         return new ResponseEntity<>(ResponseDTO.<ReservationDTO>builder()
                 .httpStatus(HttpStatus.CREATED)
@@ -74,20 +74,46 @@ public class ReservationController {
                 .data(reservationDTO).build(), HttpStatus.OK);
     }
 
-    @GetMapping("/cancel/{id}")
-    public ResponseEntity<ResponseDTO<ReservationDTO>> cancelReservation(@PathVariable Long id) {
-        log.info("Hit Controller Cancel Reservation with id: {}", id);
-        reservationService.cancelReservation(id);
+    @GetMapping("/accept/{id}")
+    public ResponseEntity<ResponseDTO<ReservationDTO>> acceptReservation(@PathVariable Long id) {
+        log.info("Hit Controller Accept Reservation with id: {}", id);
+
+        ReservationDTO reservationDTO = reservationService.getReservationByID(id);
+        reservationDTO.setStatus("Accepted");
+        // KAFKA PRODUCER
+        log.info("Kafka process...");
+        String resultKafka = sendRequest(reservationDTO);
+        log.info("Status Kafka addReservation: {}",resultKafka);
+
+        reservationService.acceptedReservation(id);
         return new ResponseEntity<>(ResponseDTO.<ReservationDTO>builder()
                 .httpStatus(HttpStatus.ACCEPTED)
-                .message("Success to Cancel Reservation with id " + id)
+                .message("Success to Accept Reservation with id " + id)
+                .build(), HttpStatus.ACCEPTED);
+    }
+
+    @GetMapping("/reject/{id}")
+    public ResponseEntity<ResponseDTO<ReservationDTO>> rejectReservation(@PathVariable Long id) {
+        log.info("Hit Controller Reject Reservation with id: {}", id);
+
+        ReservationDTO reservationDTO = reservationService.getReservationByID(id);
+        reservationDTO.setStatus("Rejected");
+        // KAFKA PRODUCER
+        log.info("Kafka process...");
+        String resultKafka = sendRequest(reservationDTO);
+        log.info("Status Kafka addReservation: {}",resultKafka);
+
+        reservationService.rejectReservation(id);
+        return new ResponseEntity<>(ResponseDTO.<ReservationDTO>builder()
+                .httpStatus(HttpStatus.ACCEPTED)
+                .message("Success to Reject Reservation with id " + id)
                 .build(), HttpStatus.ACCEPTED);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<ResponseDTO<PaginateDTO<List<ReservationListDTO>>>> getReservationByID(Pageable pageable, @PathVariable Long id) {
         log.info("Hit Controller Get all List Reservation with id_User");
-        PaginateDTO<List<ReservationListDTO>> paginateDTO = reservationService.getReservationByID(pageable, id);
+        PaginateDTO<List<ReservationListDTO>> paginateDTO = reservationService.getReservationListByID(pageable, id);
         return new ResponseEntity<>(ResponseDTO.<PaginateDTO<List<ReservationListDTO>>>builder()
                 .httpStatus(HttpStatus.OK)
                 .message("Success to Get all List Reservation")

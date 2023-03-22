@@ -14,7 +14,11 @@ public interface ReservationService {
 
     void updateReservation(Long id, ReservationDTO reservationDTO);
 
-    void cancelReservation(Long id);
+    void acceptedReservation(Long id);
 
-    PaginateDTO<List<ReservationListDTO>> getReservationByID(Pageable pageable, Long id);
+    void rejectReservation(Long id);
+
+    PaginateDTO<List<ReservationListDTO>> getReservationListByID(Pageable pageable, Long id);
+
+    ReservationDTO getReservationByID(Long id);
 }

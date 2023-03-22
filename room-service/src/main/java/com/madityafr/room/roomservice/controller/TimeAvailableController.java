@@ -22,7 +22,7 @@ public class TimeAvailableController {
     @PostMapping
     public ResponseEntity<ResponseDTO<TimeAvailableDTO>> addTime(@RequestBody TimeAvailableDTO timeAvailableDTO) {
         log.info("Hit Controller Add Time");
-        timeAvailableService.addTime(timeAvailableDTO);
+        timeAvailableService.addTime(timeAvailableDTO, "1");
         return new ResponseEntity<>(ResponseDTO.<TimeAvailableDTO>builder()
                 .httpStatus(HttpStatus.CREATED)
                 .message("Success to Add Room")

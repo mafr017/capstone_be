@@ -132,19 +132,32 @@ public class ReservationServiceImpl implements ReservationService {
 
     @Override
     @Transactional
-    public void cancelReservation(Long id) {
+    public void acceptedReservation(Long id) {
         Optional<Reservation> optionalReservation = reservationRepository.findById(id);
         if (optionalReservation.isEmpty()) {
             log.error("Reservation with id : {} not found!", id, new NotFoundException("Reservation not found"));
             throw new NotFoundException("Reservation Not Found");
         }
-        optionalReservation.get().setStatus("Canceled");
+        optionalReservation.get().setStatus("Accepted");
         reservationRepository.save(optionalReservation.get());
-        log.info("Success Cancel Room: {}", optionalReservation.get());
+        log.info("Success Accepted Room: {}", optionalReservation.get());
     }
 
     @Override
-    public PaginateDTO<List<ReservationListDTO>> getReservationByID(Pageable pageable, Long id) {
+    @Transactional
+    public void rejectReservation(Long id) {
+        Optional<Reservation> optionalReservation = reservationRepository.findById(id);
+        if (optionalReservation.isEmpty()) {
+            log.error("Reservation with id : {} not found!", id, new NotFoundException("Reservation not found"));
+            throw new NotFoundException("Reservation Not Found");
+        }
+        optionalReservation.get().setStatus("Rejected");
+        reservationRepository.save(optionalReservation.get());
+        log.info("Success Rejected Room: {}", optionalReservation.get());
+    }
+
+    @Override
+    public PaginateDTO<List<ReservationListDTO>> getReservationListByID(Pageable pageable, Long id) {
         Page<Reservation> reservations = reservationRepository.findByidUser(id, pageable);
         List<ReservationListDTO> reservationListDTOArrayList = new ArrayList<>();
         for (Reservation reservation : reservations.getContent()) {
@@ -180,5 +193,21 @@ public class ReservationServiceImpl implements ReservationService {
                 .totalOfPages(reservations.getTotalPages())
                 .currentPage(reservations.getNumber())
                 .build();
+    }
+
+    @Override
+    public ReservationDTO getReservationByID(Long id) {
+        Optional<Reservation> optionalReservation = reservationRepository.findById(id);
+        if (optionalReservation.isEmpty()) {
+            log.error("Reservation with id : {} not found!", id, new NotFoundException("Reservation not found"));
+            throw new NotFoundException("Reservation Not Found");
+        }
+        ReservationDTO result = new ReservationDTO();
+        result.setReservationDate(optionalReservation.get().getReservationDate());
+        result.setStartTime(optionalReservation.get().getStartTime());
+        result.setEndTime(optionalReservation.get().getEndTime());
+        result.setIdUser(optionalReservation.get().getUserEntity().getId().intValue());
+        result.setIdRoom(optionalReservation.get().getRoomEntity().getId());
+        return result;
     }
 }
