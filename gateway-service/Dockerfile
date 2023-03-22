@@ -9,13 +9,13 @@ RUN mvn dependency:go-offline
 COPY src/ src/
 RUN mvn package -DskipTests
 
-FROM openjdk:17
+FROM openjdk:11
 ARG JAR_FILE=gateway-service-0.0.1-SNAPSHOT.jar
 
 WORKDIR /opt/app/
 
 COPY --from=maven /usr/src/app/target/${JAR_FILE} /opt/app
 
-EXPOSE 8082
+EXPOSE 8080
 
 ENTRYPOINT ["java", "-jar", "gateway-service-0.0.1-SNAPSHOT.jar"]
