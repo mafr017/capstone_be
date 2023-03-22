@@ -16,5 +16,5 @@ public class ReservationDTO {
     private String endTime;
     private Integer idUser;
     private Integer idRoom;
-    private String status = "Pending";
+    private String status = "Accepted";
 }

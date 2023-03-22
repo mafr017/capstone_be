@@ -44,9 +44,9 @@ public class ReservationController {
         reservationService.addReservation(reservationDTO);
 
         // KAFKA PRODUCER
-//        log.info("Kafka process...");
-//        String resultKafka = sendRequest(reservationDTO);
-//        log.info("Status Kafka addReservation: {}",resultKafka);
+        log.info("Kafka process...");
+        String resultKafka = sendRequest(reservationDTO);
+        log.info("Status Kafka addReservation: {}",resultKafka);
 
         return new ResponseEntity<>(ResponseDTO.<ReservationDTO>builder()
                 .httpStatus(HttpStatus.CREATED)
