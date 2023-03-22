@@ -1,6 +1,6 @@
 package com.madityafr.room.reservationservice.kafka;
 
-import com.madityafr.room.reservationservice.dto.ReservationEvent;
+import com.madityafr.room.reservationservice.entity.ReservationEvent;
 import org.apache.kafka.clients.admin.NewTopic;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ReservationProducer {
-    @Value("${topic.name.producer}")
+    @Value("${spring.kafka.topic.reservation}")
     private String topicName;
     private static final Logger LOGGER = LoggerFactory.getLogger(ReservationProducer.class);
     private NewTopic topic;
