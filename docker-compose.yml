@@ -1,36 +1,36 @@
 version: '3'
 
 services:
-#  gateway-service:
-#    platform: 'linux/amd64'
-#    image: 'gateway-service:latest'
-#    container_name: gateway-service
-#    build:
-#      context: gateway-service
-#      dockerfile: Dockerfile
-#    expose:
-#      - "8082"
-#    ports:
-#      - "8082:8082"
-#  auth-service:
-#    platform: 'linux/amd64'
-#    image: 'auth-service:latest'
-#    container_name: auth-service
-#    build:
-#      context: auth-service
-#      dockerfile: Dockerfile
-#    depends_on:
-#      - capstone-db
-#    environment:
-#      - SPRING_DATASOURCE_URL=jdbc:postgresql://capstone-db:5432/capstone_db
-#      - SPRING_DATASOURCE_USERNAME=capstone_db
-#      - SPRING_DATASOURCE_PASSWORD=capstone_db
-#      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
-#      - SERVER_PORT=8081
-#    expose:
-#      - "8081"
-#    ports:
-#      - "8081:8081"
+  #  gateway-service:
+  #    platform: 'linux/amd64'
+  #    image: 'gateway-service:latest'
+  #    container_name: gateway-service
+  #    build:
+  #      context: gateway-service
+  #      dockerfile: Dockerfile
+  #    expose:
+  #      - "8082"
+  #    ports:
+  #      - "8082:8082"
+  #  auth-service:
+  #    platform: 'linux/amd64'
+  #    image: 'auth-service:latest'
+  #    container_name: auth-service
+  #    build:
+  #      context: auth-service
+  #      dockerfile: Dockerfile
+  #    depends_on:
+  #      - capstone-db
+  #    environment:
+  #      - SPRING_DATASOURCE_URL=jdbc:postgresql://capstone-db:5432/capstone_db
+  #      - SPRING_DATASOURCE_USERNAME=capstone_db
+  #      - SPRING_DATASOURCE_PASSWORD=capstone_db
+  #      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+  #      - SERVER_PORT=8081
+  #    expose:
+  #      - "8081"
+  #    ports:
+  #      - "8081:8081"
   capstone-db:
     image: 'postgres:15-alpine'
     container_name: capstone-db
@@ -42,6 +42,14 @@ services:
       - capstone_db:/var/lib/postgresql/data
     ports:
       - "5438:5432"
+  cache-redis-db:
+    image: redis:6.2-alpine
+    container_name: cache-redis-db
+    restart: always
+    ports:
+      - '6379:6379'
+    volumes:
+      - cache_redis_db:/data
   zookeeper:
     image: confluentinc/cp-zookeeper
     container_name: zookeeper
@@ -60,9 +68,10 @@ services:
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://broker:9092,PLAINTEXT_HOST://localhost:29092
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
-      KAFKA_INTER_BROKER_LISTENER_NAME:  PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
       KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
       KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
 volumes:
   capstone_db:
+  cache_redis_db:
