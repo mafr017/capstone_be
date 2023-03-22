@@ -18,7 +18,7 @@ import java.util.List;
 public class TypeRoomController {
     private final TypeRoomService typeRoomService;
 
-    @CrossOrigin(origins = "http://localhost:3000")
+//    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping
     public ResponseEntity<ResponseDTO<TypeRoomDTO>> addTypeRoom(@RequestBody TypeRoomDTO typeRoomDTO) {
         log.info("Hit Controller Add TypeRoom");
@@ -29,7 +29,7 @@ public class TypeRoomController {
                 .data(typeRoomDTO).build(), HttpStatus.CREATED);
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
+//    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping
     public ResponseEntity<ResponseDTO<List<TypeRoomDTO>>> getAllTypeRoom() {
         log.info("Hit Controller Get List TypeRoom");
@@ -40,7 +40,7 @@ public class TypeRoomController {
                 .data(listTypeRoom).build(), HttpStatus.OK);
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
+//    @CrossOrigin(origins = "http://localhost:3000")
     @PutMapping("/{id}")
     public ResponseEntity<ResponseDTO<TypeRoomDTO>> updateTypeRoom(@RequestBody TypeRoomDTO typeRoomDTO, @PathVariable Long id) {
         log.info("Hit Controller Update TypeRoom with id: {}",id);
@@ -51,7 +51,7 @@ public class TypeRoomController {
                 .data(typeRoomDTO).build(), HttpStatus.OK);
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
+//    @CrossOrigin(origins = "http://localhost:3000")
     @DeleteMapping("/{id}")
     public ResponseEntity<ResponseDTO<TypeRoomDTO>> deleteTypeRoom(@PathVariable Long id) {
         log.info("Hit Controller Delete TypeRoom with id: {}",id);
@@ -62,7 +62,7 @@ public class TypeRoomController {
                 .build(), HttpStatus.ACCEPTED);
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
+//    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/{id}")
     public ResponseEntity<ResponseDTO<TypeRoomDTO>> getTypeRoomByID(@PathVariable Long id) {
         log.info("Hit Controller Get TypeRoom with id: {}",id);

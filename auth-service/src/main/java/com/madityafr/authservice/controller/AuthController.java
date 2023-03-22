@@ -26,7 +26,7 @@ public class AuthController {
     private final AuthenticationManager authenticationManager;
     private final JpaUserDetailService jpaUserDetailService;
 
-    @CrossOrigin
+//    @CrossOrigin
     @PostMapping("/register")
     public ResponseEntity<ResponseDTO> addUser(@RequestBody UserDTO userDTO) {
         if (userDTO.getRole() == null) userDTO.setRole("user");

@@ -18,7 +18,7 @@ import java.time.LocalDate;
 public class TimeAvailableController {
     private final TimeAvailableService timeAvailableService;
 
-    @CrossOrigin(origins = "http://localhost:3000")
+//    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping
     public ResponseEntity<ResponseDTO<TimeAvailableDTO>> addTime(@RequestBody TimeAvailableDTO timeAvailableDTO) {
         log.info("Hit Controller Add Time");
@@ -29,7 +29,7 @@ public class TimeAvailableController {
                 .data(timeAvailableDTO).build(), HttpStatus.CREATED);
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
+//    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping
     public ResponseEntity<ResponseDTO<TimeAvailableDTO>> getTimeByID(@RequestParam Long idRoom, @RequestParam LocalDate reservationDate) {
         log.info("Hit Controller Get Time with id: {}, Date: {}", idRoom, reservationDate);

@@ -21,7 +21,7 @@ import java.util.List;
 public class RoomController {
     private final RoomService roomService;
 
-    @CrossOrigin(origins = "http://localhost:3000")
+//    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping
     public ResponseEntity<ResponseDTO<RoomDTO>> addRoom(@RequestBody RoomDTO roomDTO) {
         log.info("Hit Controller Add Room");
@@ -32,7 +32,7 @@ public class RoomController {
                 .data(roomDTO).build(), HttpStatus.CREATED);
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
+//    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/pagination")
     public ResponseEntity<ResponseDTO<PaginateDTO<List<RoomListDTO>>>> getAllRoom(Pageable pageable) {
         log.info("Hit Controller Get List Rooms with pagination");
@@ -43,7 +43,7 @@ public class RoomController {
                 .data(paginateDTO).build(), HttpStatus.OK);
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
+//    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping
     public ResponseEntity<ResponseDTO<List<RoomListDTO>>> getAllRoomList() {
         log.info("Hit Controller Get List Rooms");
@@ -54,7 +54,7 @@ public class RoomController {
                 .data(roomListDTO).build(), HttpStatus.OK);
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
+//    @CrossOrigin(origins = "http://localhost:3000")
     @PutMapping("/{id}")
     public ResponseEntity<ResponseDTO<RoomDTO>> updateRoom(@RequestBody RoomDTO roomDTO, @PathVariable Long id) {
         log.info("Hit Controller Update Room with id: {}",id);
@@ -65,7 +65,7 @@ public class RoomController {
                 .data(roomDTO).build(), HttpStatus.OK);
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
+//    @CrossOrigin(origins = "http://localhost:3000")
     @DeleteMapping("/{id}")
     public ResponseEntity<ResponseDTO<RoomDTO>> deleteRoom(@PathVariable Long id) {
         log.info("Hit Controller Delete Room with id: {}",id);
@@ -76,7 +76,7 @@ public class RoomController {
                 .build(), HttpStatus.ACCEPTED);
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
+//    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/{id}")
     public ResponseEntity<ResponseDTO<RoomListDTO>> getRoomByID(@PathVariable Long id) {
         log.info("Hit Controller Get Room with id: {}",id);
