@@ -85,7 +85,7 @@ public class ReservationConsumer {
         } catch (Exception e) {
             LOGGER.error("Reservation failed : {}", e.getMessage());
             LOGGER.info("Kafka process...");
-            dataFromKafka.setStatus("Rejected");
+            dataFromKafka.setStatus("Pending");
             String resultKafka = sendRequest(dataFromKafka);
             LOGGER.info("Status Kafka addReservation: {}",resultKafka);
         }
