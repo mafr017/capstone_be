@@ -1,18 +1,34 @@
-POST localhost:8085/api/v1/auth/register
+### CREATE ADMIN
+
+POST localhost:8081/api/v1/auth/register
 Content-Type: application/json
 
 {
-  "username" : "mafr",
-  "email" : "madityafr@gmail.com",
+  "username" : "admin",
+  "email" : "admin@gmail.com",
   "password" : "Pass123!",
-  "firstName" : "Muhammad Aditya",
-  "lastName" : "Fathur Rahman",
+  "firstName" : "Admin",
+  "lastName" : "Satu",
+  "role" : "admin"
+}
+
+### CREATE USER
+
+POST localhost:8081/api/v1/auth/register
+Content-Type: application/json
+
+{
+  "username" : "admin",
+  "email" : "admin@gmail.com",
+  "password" : "Pass123!",
+  "firstName" : "Admin",
+  "lastName" : "Satu",
   "role" : "admin"
 }
 
 ###
 
-POST localhost:8085/api/v1/auth/login
+POST localhost:8081/api/v1/auth/login
 Content-Type: application/json
 
 {
@@ -25,5 +41,5 @@ client.global.set("token", response.body.data);
 %}
 ###
 
-GET localhost:8085/api/v1/auth/all-users
+GET localhost:8081/api/v1/auth/all-users
 Authorization: Bearer {{token}}

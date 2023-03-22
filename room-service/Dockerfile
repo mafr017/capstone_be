@@ -10,12 +10,12 @@ COPY src/ src/
 RUN mvn package -DskipTests
 
 FROM openjdk:17
-ARG JAR_FILE=gateway-service-0.0.1-SNAPSHOT.jar
+ARG JAR_FILE=room-service-0.0.1-SNAPSHOT.jar
 
 WORKDIR /opt/app/
 
 COPY --from=maven /usr/src/app/target/${JAR_FILE} /opt/app
 
-EXPOSE 8082
+EXPOSE 8083
 
-ENTRYPOINT ["java", "-jar", "gateway-service-0.0.1-SNAPSHOT.jar"]
+ENTRYPOINT ["java", "-jar", "room-service-0.0.1-SNAPSHOT.jar"]
