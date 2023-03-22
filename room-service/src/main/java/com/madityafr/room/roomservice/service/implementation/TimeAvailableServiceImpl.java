@@ -28,6 +28,7 @@ public class TimeAvailableServiceImpl implements TimeAvailableService {
     @Override
     @Transactional
     public void addTime(TimeAvailableDTO timeAvailableDTO) {
+        log.info("Add Time: {}", timeAvailableDTO);
         TimeAvailable timeAvailable = modelMapper.map(timeAvailableDTO, TimeAvailable.class);
         TimeAvailableDTO check = getTimeByIDAndDate(timeAvailableDTO.getIdRoom().longValue(), timeAvailableDTO.getReservationDate());
         if (check != null) {
