@@ -13,23 +13,23 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ReservationProducer {
-//    @Value("${spring.kafka.topic.reservation}")
-//    private String topicName;
-//    private static final Logger LOGGER = LoggerFactory.getLogger(ReservationProducer.class);
-//    private NewTopic topic;
-//    private KafkaTemplate<String, ReservationEvent> kafkaTemplate;
-//
-//    public ReservationProducer(NewTopic topic, KafkaTemplate<String, ReservationEvent> kafkaTemplate) {
-//        this.topic = topic;
-//        this.kafkaTemplate = kafkaTemplate;
-//    }
-//
-//    public void sendMessage(ReservationEvent event){
-//        LOGGER.info(String.format("Reservation event => %s", topicName));
-//        Message<ReservationEvent> message = MessageBuilder
-//                .withPayload(event)
-//                .setHeader(KafkaHeaders.TOPIC, topicName)
-//                .build();
-//        kafkaTemplate.send(message);
-//    }
+    @Value("${spring.kafka.topic.room}")
+    private String topicName;
+    private static final Logger LOGGER = LoggerFactory.getLogger(ReservationProducer.class);
+    private NewTopic topic;
+    private KafkaTemplate<String, ReservationEvent> kafkaTemplate;
+
+    public ReservationProducer(NewTopic topic, KafkaTemplate<String, ReservationEvent> kafkaTemplate) {
+        this.topic = topic;
+        this.kafkaTemplate = kafkaTemplate;
+    }
+
+    public void sendMessage(ReservationEvent event){
+        LOGGER.info(String.format("Reservation event => %s", topicName));
+        Message<ReservationEvent> message = MessageBuilder
+                .withPayload(event)
+                .setHeader(KafkaHeaders.TOPIC, topicName)
+                .build();
+        kafkaTemplate.send(message);
+    }
 }

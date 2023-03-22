@@ -9,16 +9,16 @@ import org.springframework.kafka.config.TopicBuilder;
 @Configuration
 public class KafkaTopicConfig {
 
-//    @Value("${spring.kafka.topic.room}")
-//    private String topicName;
-//
-//    // spring bean for kafka topic
-//    @Bean
-//    public NewTopic topic(){
-//        return TopicBuilder.name(topicName)
-//                .partitions(1)
-//                .replicas(1)
-//                .compact()
-//                .build();
-//    }
+    @Value("${spring.kafka.topic.room}")
+    private String topicName;
+
+    // spring bean for kafka topic
+    @Bean
+    public NewTopic topic(){
+        return TopicBuilder.name(topicName)
+                .partitions(1)
+                .replicas(1)
+                .compact()
+                .build();
+    }
 }
