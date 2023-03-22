@@ -1,12 +1,8 @@
 package com.madityafr.room.reservationservice.dto;
 
-import com.madityafr.room.reservationservice.entity.Room;
-import com.madityafr.room.reservationservice.entity.User;
 import lombok.*;
 
 import java.time.LocalDate;
-import java.util.Date;
-
 
 @Data
 @Builder

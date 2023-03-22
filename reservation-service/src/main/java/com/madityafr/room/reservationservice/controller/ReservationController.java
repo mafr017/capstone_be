@@ -1,7 +1,7 @@
 package com.madityafr.room.reservationservice.controller;
 
 import com.madityafr.room.reservationservice.dto.*;
-import com.madityafr.room.reservationservice.entity.Reservation;
+import com.madityafr.room.reservationservice.entity.ReservationEvent;
 import com.madityafr.room.reservationservice.kafka.ReservationProducer;
 import com.madityafr.room.reservationservice.services.ReservationService;
 import lombok.extern.slf4j.Slf4j;
@@ -29,18 +29,12 @@ public class ReservationController {
 
     // KAFKA
     @PostMapping("/request")
-    public String placeOrder(@RequestBody Reservation reservation){
-        ReservationEvent reservationEvent = new ReservationEvent();
-        reservationEvent.setStatus("PENDING");
-        reservationEvent.setMessage("Request status is in pending state");
-        reservationEvent.setReservation(reservation);
-
-        try {
-            reservationProducer.sendMessage(reservationEvent);
-            return "Reservation Meeting Room successfully ...";
-        } catch (Exception e) {
-            return "Reservation Meeting Room failed ...";
-        }
+    public String sendRequest(@RequestBody ReservationDTO param){
+        ReservationEvent event = new ReservationEvent();
+        event.setReservationDTO(param);
+        reservationProducer.sendMessage(event);
+        log.info("Reservation Meeting Room successfully...");
+        return "Reservation Meeting Room successfully ...";
     }
 
     // CRUD
@@ -48,6 +42,12 @@ public class ReservationController {
     public ResponseEntity<ResponseDTO<ReservationDTO>> addReservation(@RequestBody ReservationDTO reservationDTO) {
         log.info("Hit Controller Add Reservation");
         reservationService.addReservation(reservationDTO);
+
+        // KAFKA PRODUCER
+        log.info("Kafka process...");
+        String resultKafka = sendRequest(reservationDTO);
+        log.info("Status Kafka addReservation: {}",resultKafka);
+
         return new ResponseEntity<>(ResponseDTO.<ReservationDTO>builder()
                 .httpStatus(HttpStatus.CREATED)
                 .message("Success to Add Reservation")
@@ -66,21 +66,21 @@ public class ReservationController {
 
     @PutMapping("/{id}")
     public ResponseEntity<ResponseDTO<ReservationDTO>> updateReservation(@RequestBody ReservationDTO reservationDTO, @PathVariable Long id) {
-        log.info("Hit Controller Update Reservation with id: {}",id);
+        log.info("Hit Controller Update Reservation with id: {}", id);
         reservationService.updateReservation(id, reservationDTO);
         return new ResponseEntity<>(ResponseDTO.<ReservationDTO>builder()
                 .httpStatus(HttpStatus.OK)
-                .message("Success to Update Reservation with id "+id)
+                .message("Success to Update Reservation with id " + id)
                 .data(reservationDTO).build(), HttpStatus.OK);
     }
 
     @GetMapping("/cancel/{id}")
     public ResponseEntity<ResponseDTO<ReservationDTO>> cancelReservation(@PathVariable Long id) {
-        log.info("Hit Controller Cancel Reservation with id: {}",id);
+        log.info("Hit Controller Cancel Reservation with id: {}", id);
         reservationService.cancelReservation(id);
         return new ResponseEntity<>(ResponseDTO.<ReservationDTO>builder()
                 .httpStatus(HttpStatus.ACCEPTED)
-                .message("Success to Cancel Reservation with id "+id)
+                .message("Success to Cancel Reservation with id " + id)
                 .build(), HttpStatus.ACCEPTED);
     }
 
@@ -93,16 +93,6 @@ public class ReservationController {
                 .message("Success to Get all List Reservation")
                 .data(paginateDTO).build(), HttpStatus.OK);
     }
-
-//    @GetMapping("/{id}")
-//    public ResponseEntity<ResponseDTO<ReservationListDTO>> getReservationByID(@PathVariable Long id) {
-//        log.info("Hit Controller Get Reservation with id: {}",id);
-//        ReservationListDTO result = reservationService.getReservationByID(id);
-//        return new ResponseEntity<>(ResponseDTO.<ReservationListDTO>builder()
-//                .httpStatus(HttpStatus.OK)
-//                .message("Success to Get Reservation with id: "+id)
-//                .data(result).build(), HttpStatus.OK);
-//    }
 
 
 }
