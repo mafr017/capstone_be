@@ -25,7 +25,10 @@ public class Reservation {
     private LocalDate reservationDate;
     private String startTime;
     private String endTime;
-    private Integer idUser;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "idUser")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private User userEntity;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "idRoom")
     @OnDelete(action = OnDeleteAction.CASCADE)

@@ -9,7 +9,7 @@ import org.springframework.kafka.config.TopicBuilder;
 @Configuration
 public class KafkaTopicConfig {
 
-    @Value("${topic.name.producer}")
+    @Value("${spring.kafka.topic.reservation}")
     private String topicName;
 
     // spring bean for kafka topic
