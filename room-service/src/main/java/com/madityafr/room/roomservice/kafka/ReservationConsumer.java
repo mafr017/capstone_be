@@ -2,18 +2,14 @@ package com.madityafr.room.roomservice.kafka;
 
 import com.madityafr.room.reservationservice.dto.ReservationDTO;
 import com.madityafr.room.reservationservice.entity.ReservationEvent;
-import com.madityafr.room.reservationservice.kafka.ReservationProducer;
-import com.madityafr.room.reservationservice.services.ReservationService;
 import com.madityafr.room.roomservice.dto.TimeAvailableDTO;
 import com.madityafr.room.roomservice.service.TimeAvailableService;
-import lombok.RequiredArgsConstructor;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.ArrayList;
