@@ -47,6 +47,7 @@ public class SecurityConfig {
                 .authorizeRequests(auth -> {
                      auth.antMatchers("/api/v1/auth/login").permitAll();
                      auth.antMatchers("/api/v1/auth/register").permitAll();
+                    auth.antMatchers("/api/v1/auth/count-users").permitAll();
                      auth.anyRequest().authenticated();
                 })
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

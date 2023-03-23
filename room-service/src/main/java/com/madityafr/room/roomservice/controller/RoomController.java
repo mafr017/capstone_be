@@ -86,4 +86,10 @@ public class RoomController {
                 .message("Success to Get Room with id: "+id)
                 .data(result).build(), HttpStatus.OK);
     }
+    @GetMapping("/count-room")
+    public ResponseEntity<Integer> countRoom() {
+        log.info("count room");
+        Integer countRoom = roomService.countRoom();
+        return new ResponseEntity<>(countRoom, HttpStatus.OK);
+    }
 }
