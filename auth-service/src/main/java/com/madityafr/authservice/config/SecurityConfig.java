@@ -40,11 +40,23 @@ public class SecurityConfig {
 
     private final RSAKeyProperties rsaKeyProperties;
     private final JpaUserDetailService jpaUserDetailService;
+
+    private static final String[] AUTH_WHITELIST = {
+            // Swagger
+            "/api/auth-service/v3/api-docs",
+            "/swagger-ui",
+            "/swagger-ui/**",
+            "/swagger-ui.html",
+            "/webjars/**",
+            "/swagger.json",
+    };
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
         return http.cors().and()
                 .csrf().disable()
                 .authorizeRequests(auth -> {
+                    auth.antMatchers(AUTH_WHITELIST).permitAll();
                      auth.antMatchers("/api/v1/auth/login").permitAll();
                      auth.antMatchers("/api/v1/auth/register").permitAll();
                      auth.anyRequest().authenticated();
@@ -56,7 +68,7 @@ public class SecurityConfig {
 
                         ))
                         .accessDeniedHandler(new BearerTokenAccessDeniedHandler()))
-                .build();
+                .getOrBuild();
     }
 //    @Bean
 //    public CorsConfigurationSource corsConfigurationSource() {

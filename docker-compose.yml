@@ -1,36 +1,81 @@
 version: '3'
 
 services:
-  #  gateway-service:
-  #    platform: 'linux/amd64'
-  #    image: 'gateway-service:latest'
-  #    container_name: gateway-service
-  #    build:
-  #      context: gateway-service
-  #      dockerfile: Dockerfile
-  #    expose:
-  #      - "8082"
-  #    ports:
-  #      - "8082:8082"
-  #  auth-service:
-  #    platform: 'linux/amd64'
-  #    image: 'auth-service:latest'
-  #    container_name: auth-service
-  #    build:
-  #      context: auth-service
-  #      dockerfile: Dockerfile
-  #    depends_on:
-  #      - capstone-db
-  #    environment:
-  #      - SPRING_DATASOURCE_URL=jdbc:postgresql://capstone-db:5432/capstone_db
-  #      - SPRING_DATASOURCE_USERNAME=capstone_db
-  #      - SPRING_DATASOURCE_PASSWORD=capstone_db
-  #      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
-  #      - SERVER_PORT=8081
-  #    expose:
-  #      - "8081"
-  #    ports:
-  #      - "8081:8081"
+#  gateway-service:
+#    platform: 'linux/amd64'
+#    image: 'gateway-service:latest'
+#    container_name: gateway-service
+#    build:
+#      context: gateway-service
+#      dockerfile: Dockerfile
+#    expose:
+#      - "8080"
+#    ports:
+#      - "8080:8080"
+#  auth-service:
+#    platform: 'linux/amd64'
+#    image: 'auth-service:latest'
+#    container_name: auth-service
+#    build:
+#      context: auth-service
+#      dockerfile: Dockerfile
+#    depends_on:
+#      - capstone-db
+#      - room-service
+#    environment:
+#      - SPRING_DATASOURCE_URL=jdbc:postgresql://capstone-db:5432/capstone_db
+#      - SPRING_DATASOURCE_USERNAME=capstone_db
+#      - SPRING_DATASOURCE_PASSWORD=capstone_db
+#      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+#      - SERVER_PORT=8081
+#    expose:
+#      - "8081"
+#    ports:
+#      - "8081:8081"
+#  reservation-service:
+#    platform: 'linux/amd64'
+#    image: 'reservation-service:latest'
+#    container_name: reservation-service
+#    build:
+#      context: reservation-service
+#      dockerfile: Dockerfile
+#    depends_on:
+#      - capstone-db
+#      - room-service
+#      - broker
+#    environment:
+#      - SERVER_PORT=8084
+#      - SPRING_KAFKA_CONSUMER_GROUP-ID=rooms
+#      - SPRING_KAFKA_CONSUMER_AUTO-OFFSET-RESET=earliest
+#      - SPRING_KAFKA_BOOTSTRAP-SERVERS=PLAINTEXT://broker:29092
+#      - spring.kafka.topic.reservation=reservation_topics
+#      - spring.kafka.producer.key-serializer=org.apache.kafka.common.serialization.StringSerializer
+#      - spring.kafka.producer.value-serializer=org.springframework.kafka.support.serializer.JsonSerializer
+#    expose:
+#      - "8084"
+#    ports:
+#      - "8084:8084"
+#  room-service:
+#    platform: 'linux/amd64'
+#    image: 'room-service:latest'
+#    container_name: room-service
+#    build:
+#      context: room-service
+#      dockerfile: Dockerfile
+#    depends_on:
+#      - capstone-db
+#      - cache-redis-db
+#      - broker
+#    environment:
+#      - SERVER_PORT=8083
+#      - SPRING_KAFKA_CONSUMER_GROUP-ID=tpd-rooms
+#      - SPRING_KAFKA_CONSUMER_AUTO-OFFSET-RESET=earliest
+#      - SPRING_KAFKA_BOOTSTRAP-SERVERS=PLAINTEXT://broker:29092
+#      - spring.kafka.topic.reservation=reservation_topics
+#    expose:
+#      - "8083"
+#    ports:
+#      - "8083:8083"
   capstone-db:
     image: 'postgres:15-alpine'
     container_name: capstone-db

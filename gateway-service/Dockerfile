@@ -1,4 +1,4 @@
-FROM maven:3.9.0-eclipse-temurin-17-alpine AS maven
+FROM maven:3.9.0-eclipse-temurin-11-alpine AS maven
 
 WORKDIR /usr/src/app
 #COPY . /usr/src/app

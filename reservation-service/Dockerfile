@@ -10,7 +10,7 @@ COPY src/ src/
 RUN mvn package -DskipTests
 
 FROM openjdk:17
-ARG JAR_FILE=reservation-service-0.0.1-SNAPSHOT.jar
+ARG JAR_FILE=room.reservation-service-0.0.1-SNAPSHOT.jar
 
 WORKDIR /opt/app/
 
@@ -18,4 +18,4 @@ COPY --from=maven /usr/src/app/target/${JAR_FILE} /opt/app
 
 EXPOSE 8084
 
-ENTRYPOINT ["java", "-jar", "reservation-service-0.0.1-SNAPSHOT.jar"]
+ENTRYPOINT ["java", "-jar", "room.reservation-service-0.0.1-SNAPSHOT.jar"]
