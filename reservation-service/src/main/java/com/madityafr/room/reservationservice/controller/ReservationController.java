@@ -120,5 +120,14 @@ public class ReservationController {
                 .data(paginateDTO).build(), HttpStatus.OK);
     }
 
+    @GetMapping("/count-reservation")
+    public ResponseEntity<DashboardDataDTO> countReservation() {
+        log.info("count reservation");
+        DashboardDataDTO dataDTO = new DashboardDataDTO();
+        dataDTO.setListStatus(reservationService.countStatus());
+        dataDTO.setTotalReservation(reservationService.countReservation());
+        return new ResponseEntity<>(dataDTO, HttpStatus.OK);
+    }
+
 
 }

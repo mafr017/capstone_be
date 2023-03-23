@@ -69,4 +69,10 @@ public class AuthController {
         log.info("AuthController method allUsers");
         return new ResponseEntity<>(jpaUserDetailService.getAll(), HttpStatus.OK);
     }
+    @GetMapping("/count-users")
+    public ResponseEntity<Integer> countUsers() {
+        log.info("count users");
+        Integer countUser = tokenService.countUser();
+        return new ResponseEntity<>(countUser, HttpStatus.OK);
+    }
 }

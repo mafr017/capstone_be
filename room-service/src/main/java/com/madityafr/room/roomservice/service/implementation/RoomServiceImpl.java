@@ -128,4 +128,9 @@ public class RoomServiceImpl implements RoomService {
         log.info("Success get List Room");
         return roomDTOArrayList;
     }
+
+    @Override
+    public Integer countRoom() {
+        return roomRepository.countRoom();
+    }
 }

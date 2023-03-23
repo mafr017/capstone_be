@@ -19,4 +19,6 @@ public interface RoomService {
     RoomListDTO getRoomByID(Long id);
 
     List<RoomListDTO> getAllRoomList();
+
+    Integer countRoom();
 }

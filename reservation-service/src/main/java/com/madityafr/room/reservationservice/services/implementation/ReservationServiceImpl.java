@@ -210,4 +210,14 @@ public class ReservationServiceImpl implements ReservationService {
         result.setIdRoom(optionalReservation.get().getRoomEntity().getId());
         return result;
     }
+
+    @Override
+    public Integer countReservation() {
+        return reservationRepository.countReservation();
+    }
+
+    @Override
+    public List<Integer> countStatus() {
+        return reservationRepository.countStatus();
+    }
 }
