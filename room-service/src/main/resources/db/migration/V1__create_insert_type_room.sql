@@ -22,7 +22,3 @@ values
 'A session is a meeting in which one person shares their expertise on a particular topic with everyone else. This format of meeting works well when you need to get information from someone quickly and informally when there isn’t time for more extensive training or education.',
 'Session / Q&A session',
 '2023-03-21 04:11:33.675');
-
-INSERT INTO users
-(created_at, email, first_name, last_name, "password", "role", updated_at, username)
-VALUES('2023-03-20 15:29:26.662', 'admin@gmail.com', 'Admin', 'Satu', '$2a$10$kqJ0YDHHFm00XkbduRFe0upJvHMD0v7byoQvQfCOHDULoYSPA.7Em', 'admin', '2023-03-20 15:29:26.662', 'admin');
