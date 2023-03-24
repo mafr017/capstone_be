@@ -21,4 +21,8 @@ public interface ReservationService {
     PaginateDTO<List<ReservationListDTO>> getReservationListByID(Pageable pageable, Long id);
 
     ReservationDTO getReservationByID(Long id);
+
+    Integer countReservation();
+
+    List<Integer> countStatus();
 }

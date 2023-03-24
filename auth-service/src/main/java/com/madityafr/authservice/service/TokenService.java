@@ -8,4 +8,5 @@ public interface TokenService {
     String generatedToken(Authentication authentication);
     UserDTO decodeToken(String token);
     User addUser(UserDTO userDTO);
+    Integer countUser();
 }

@@ -70,4 +70,9 @@ public class TokenServiceImpl implements TokenService {
         user.setPassword(encoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
+
+    @Override
+    public Integer countUser() {
+        return userRepository.countClient();
+    }
 }
