@@ -21,7 +21,6 @@ services:
 #      dockerfile: Dockerfile
 #    depends_on:
 #      - capstone-db
-#      - room-service
 #    environment:
 #      - SPRING_DATASOURCE_URL=jdbc:postgresql://capstone-db:5432/capstone_db
 #      - SPRING_DATASOURCE_USERNAME=capstone_db
